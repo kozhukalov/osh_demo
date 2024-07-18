@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Set hostname
+      shell: |
+        hostnamectl hostname {{ inventory_hostname }}
+
+    - name: Set hostname to hosts
+      shell: |
+        if ! grep -q {{ inventory_hostname }} /etc/hosts; then
+          echo "127.0.0.1 {{ inventory_hostname }}" >> /etc/hosts
+        fi
+
+    - name: Update facts
+      setup:
+
+    - name: Dist upgrade
+      shell: |
+        apt-get update
+        apt-get dist-upgrade -y
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+
+    - name: Reboot nodes
+      reboot:
+        reboot_timeout: 300

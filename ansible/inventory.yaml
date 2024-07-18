@@ -1,0 +1,29 @@
+---
+all:
+  hosts:
+    # Used to deploy Kubectl and Helm
+    # and run client commands
+    primary:
+      ansible_host: 10.220.17.251
+    node-1:
+      ansible_host: 10.220.18.86
+    node-2:
+      ansible_host: 10.220.18.58
+    node-3:
+      ansible_host: 10.220.18.88
+  children:
+    primary:
+      hosts:
+        primary:
+    k8s_cluster:
+      hosts:
+        node-1:
+        node-2:
+        node-3:
+    k8s_control_plane:
+      hosts:
+        node-1:
+    k8s_nodes:
+      hosts:
+        node-2:
+        node-3:

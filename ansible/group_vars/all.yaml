@@ -1,0 +1,18 @@
+ansible_user: root
+ansible_ssh_private_key_file: /home/vlad/.ssh/id_ed25519
+ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+kubectl:
+  user: root
+  group: root
+docker_users:
+  - root
+metallb_setup: true
+openstack_provider_gateway_setup: true
+client_cluster_ssh_setup: true
+client_ssh_user: root
+cluster_ssh_user: root
+calico_setup : false
+flannel_setup: true
+kubeadm:
+  pod_network_cidr: "10.244.0.0/16"
+  service_cidr: "10.96.0.0/16"
