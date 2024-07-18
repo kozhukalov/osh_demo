@@ -40,10 +40,14 @@ EOF
 # Prepare inventory variables
 Edit the `ansible/group_vars/all.yaml` file and set necessary variables. Default variables are [here](https://opendev.org/openstack/openstack-helm-infra/src/branch/master/roles/deploy-env/defaults/main.yaml)
 
+
 # Deploy K8s
 ```bash
 cd ~/osh_demo/ansible
 export ANSIBLE_ROLES_PATH=~/osh/openstack-helm-infra/roles:~/osh/zuul-jobs/roles
+# upgrade OS if necessary
+ansible-playbook -i inventory.py playbooks/upgrade.yaml
+# deploy K8s
 ansible-playbook -i inventory.py playbooks/deploy-env.yaml
 # or use the following command depending on the inventory format
 # ansible-playbook -i inventory.yaml playbooks/deploy-env.yaml
