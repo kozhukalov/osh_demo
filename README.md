@@ -12,7 +12,7 @@ We assume the git repo is clonned to `~/osh_demo`
 cd ~/osh_demo
 python -m venv osh_demo_venv
 source osh_demo_venv/bin/activate
-pip install ansible
+pip install ansible netaddr
 ```
 
 # Prepare Ansible inventory
