@@ -34,6 +34,31 @@ bootstrap:
 conf:
   rgw_ks:
     enabled: false
+storageclass:
+  rbd:
+    parameters:
+      adminSecretName: rook-csi-rbd-provisioner
+      adminSecretNameNode: rook-csi-rbd-node
+      userSecretName: pvc-ceph-client-key
+  csi_rbd:
+    provisioner: rook-ceph.rbd.csi.ceph.com
+    parameters:
+      clusterID: ceph
+      csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+      csi.storage.k8s.io/controller-expand-secret-namespace: ceph
+      csi.storage.k8s.io/fstype: ext4
+      csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+      csi.storage.k8s.io/node-stage-secret-namespace: ceph
+      csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+      csi.storage.k8s.io/provisioner-secret-namespace: ceph
+      pool: rbd
+      imageFeatures: layering
+      imageFormat: "2"
+      adminId: admin
+      adminSecretName: rook-csi-rbd-provisioner
+      adminSecretNamespace: ceph
+      userId: admin
+      userSecretName: pvc-ceph-client-key
 EOF
 
 helm upgrade --install ceph-openstack-config openstack-helm-infra/ceph-provisioners \

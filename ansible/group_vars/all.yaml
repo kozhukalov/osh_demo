@@ -11,8 +11,15 @@ openstack_provider_gateway_setup: true
 client_cluster_ssh_setup: true
 client_ssh_user: root
 cluster_ssh_user: root
-calico_setup : false
-flannel_setup: true
+calico_setup: true
+cilium_setup: false
+flannel_setup: false
 kubeadm:
   pod_network_cidr: "10.244.0.0/16"
   service_cidr: "10.96.0.0/16"
+
+kube_version_repo: "v1.30"
+kube_version: "1.30.3-1.1"
+helm_version: "v3.15.3"
+crictl_version: "v1.30.1"
+calico_version: "v3.27.4"

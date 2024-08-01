@@ -17,7 +17,7 @@ set -xe
 . env.sh
 
 : ${CEPH_OSD_DATA_DEVICE:="/dev/vdb"}
-: ${POD_NETWORK_CIDR:="10.244.0.0/24"}
+: ${POD_NETWORK_CIDR:="10.244.0.0/16"}
 
 NUMBER_OF_OSDS="$(kubectl get nodes -l ceph-osd=enabled --no-headers | wc -l)"
 
@@ -94,76 +94,6 @@ conf:
         application: rbd
         replication: 1
         percent_total_data: 40
-    #   # CephFS pools
-    #   - name: cephfs_metadata
-    #     application: cephfs
-    #     replication: 1
-    #     percent_total_data: 5
-    #   - name: cephfs_data
-    #     application: cephfs
-    #     replication: 1
-    #     percent_total_data: 10
-    #   # RadosGW pools
-    #   - name: .rgw.root
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.control
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.data.root
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.gc
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.log
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.intent-log
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.meta
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.usage
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.users.keys
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.users.email
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.users.swift
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.users.uid
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.buckets.extra
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 0.1
-    #   - name: default.rgw.buckets.index
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 3
-    #   - name: default.rgw.buckets.data
-    #     application: rgw
-    #     replication: 1
-    #     percent_total_data: 29
   storage:
     osd:
       - data:
@@ -181,6 +111,7 @@ storageclass:
     parameters:
       adminSecretName: rook-csi-rbd-provisioner
       adminSecretNameNode: rook-csi-rbd-node
+      userSecretName: pvc-ceph-client-key
   csi_rbd:
     provisioner: rook-ceph.rbd.csi.ceph.com
     parameters:
@@ -195,11 +126,11 @@ storageclass:
       pool: rbd
       imageFeatures: layering
       imageFormat: "2"
-      adminId: null
+      adminId: admin
       adminSecretName: rook-csi-rbd-provisioner
       adminSecretNamespace: ceph
-      userId: null
-      userSecretName: null
+      userId: admin
+      userSecretName: pvc-ceph-client-key
 
 pod:
   replicas:

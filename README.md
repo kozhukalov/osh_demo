@@ -41,10 +41,12 @@ Edit the `ansible/group_vars/all.yaml` file and set necessary variables. The def
 cd ~/osh_demo/ansible
 export ANSIBLE_ROLES_PATH=~/osh/openstack-helm-infra/roles:~/osh/zuul-jobs/roles
 # upgrade OS if necessary and deploy K8s
-# way 1: inventory.yaml
+#
+# option 1: inventory.yaml
 # ansible-playbook -i inventory.yaml playbooks/upgrade.yaml
 # ansible-playbook -i inventory.yaml playbooks/deploy-env.yaml
-# way 2: inventory.py
+#
+# option 2: inventory.py
 ansible-playbook -i inventory.py playbooks/upgrade.yaml
 ansible-playbook -i inventory.py playbooks/deploy-env.yaml
 ```
@@ -70,7 +72,6 @@ cd ~/scripts
 ./deploy_ingress.sh
 ./deploy_ceph.sh
 ./deploy_ceph-adapter-rook.sh
-./deploy_metallb.sh
 ./deploy_openstack.sh
 ./deploy_openstack_public_endpoint.sh
 ```
