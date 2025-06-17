@@ -11,7 +11,7 @@ def get_vm_ips():
     '''Returns the list of node IPs.
     Reimplements according to your needs.
     '''
-    return jone.get_vm_ips()
+    return jone.get_vm_ips(["osh"])
 
 
 def one_inventory(pretty=False):
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         if args.host:
             print(json.dumps({"_meta":{}}))
             sys.stderr.write('This script already provides _meta via --list, so this option is really ignored\n')
-        elif len(args.list) >= 0:
+        elif args.list is not None and len(args.list) >= 0:
             inventory_data = one_inventory(args.pretty)
             print(inventory_data)
         else:
