@@ -1,0 +1,6 @@
+---
+all:
+  hosts:
+    ns1:
+      ansible_host: 10.220.27.0
+

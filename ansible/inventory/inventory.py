@@ -27,27 +27,6 @@ def one_inventory(pretty=False):
 
     groups = {
         "all": {
-            # "vars": {
-            #     "ansible_user": "root",
-            #     "ansible_ssh_private_key_file": "/home/vlad/.ssh/id_ed25519",
-            #     "ansible_ssh_extra_args": "-o StrictHostKeyChecking=no",
-            #     "kubectl": {
-            #         "user": "root",
-            #         "group": "root",
-            #     },
-            #     "docker_users": ["root"],
-            #     "metallb_setup": True,
-            #     "openstack_provider_gateway_setup": True,
-            #     "client_cluster_ssh_setup": True,
-            #     "client_ssh_user": "root",
-            #     "cluster_ssh_user": "root",
-            #     "calico_setup" : False,
-            #     "flannel_setup": True,
-            #     "kubeadm": {
-            #         "pod_network_cidr": "10.244.0.0/16",
-            #         "service_cidr": "10.96.0.0/16",
-            #     },
-            # },
             "children": [
                 "primary",
                 "k8s_cluster",
@@ -79,8 +58,7 @@ def one_inventory(pretty=False):
     return json.dumps(inventory_data, indent=indent)
 
 
-if __name__ == '__main__':
-
+def main():
     arg_parser = argparse.ArgumentParser( description=__doc__, prog=__file__)
     arg_parser.add_argument(
         '--pretty',
@@ -105,3 +83,7 @@ if __name__ == '__main__':
 
     except ValueError:
         raise
+
+
+if __name__ == '__main__':
+    main()

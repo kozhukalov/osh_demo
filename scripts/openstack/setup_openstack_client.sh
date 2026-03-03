@@ -22,11 +22,12 @@ EOF
 
 sudo tee /usr/local/bin/openstack << EOF
 #!/bin/bash
-args=("\$@")
+set -x
 
 : \${OS_CLOUD:=openstack_helm}
-: \${OPENSTACK_RELEASE:=2024.1}
+: \${OPENSTACK_RELEASE:=2025.1}
 
+args=("\$@")
 sudo docker run \\
     --rm \\
     --network host \\
@@ -35,6 +36,6 @@ sudo docker run \\
     -v /etc/openstack-helm:/etc/openstack-helm \\
     -e OS_CLOUD=\${OS_CLOUD} \\
     \${OPENSTACK_CLIENT_CONTAINER_EXTRA_ARGS} \\
-    docker.io/openstackhelm/openstack-client:\${OPENSTACK_RELEASE} openstack "\${args[@]}"
+    quay.io/airshipit/openstack-client:\${OPENSTACK_RELEASE:-2025.1}-\${CONTAINER_DISTRO_NAME:-ubuntu}_\${CONTAINER_DISTRO_VERSION:-noble} openstack "\${args[@]}"
 EOF
 sudo chmod +x /usr/local/bin/openstack

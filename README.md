@@ -2,7 +2,7 @@
 ```bash
 mkdir -p ~/osh
 cd ~/osh
-git clone https://opendev.org/openstack/openstack-helm-infra.git
+git clone https://opendev.org/openstack/openstack-helm.git
 git clone https://opendev.org/zuul/zuul-jobs.git
 ```
 
@@ -33,13 +33,13 @@ EOF
 ```
 
 # Prepare inventory variables
-Edit the `ansible/group_vars/all.yaml` file and set necessary variables. The default variable values can be found [here](https://opendev.org/openstack/openstack-helm-infra/src/branch/master/roles/deploy-env/defaults/main.yaml)
+Edit the `ansible/group_vars/all.yaml` file and set necessary variables. The default variable values can be found [here](https://opendev.org/openstack/openstack-helm/src/branch/master/roles/deploy-env/defaults/main.yaml)
 
 
 # Deploy K8s
 ```bash
 cd ~/osh_demo/ansible
-export ANSIBLE_ROLES_PATH=~/osh/openstack-helm-infra/roles:~/osh/zuul-jobs/roles
+export ANSIBLE_ROLES_PATH=~/osh/openstack-helm/roles:~/osh/zuul-jobs/roles
 # upgrade OS if necessary and deploy K8s
 #
 # option 1: inventory.yaml

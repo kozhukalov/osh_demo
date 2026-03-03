@@ -1,0 +1,10 @@
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Print host
+      debug:
+        msg: "{{ play_hosts | map('extract', hostvars, ['ansible_host']) | join(' ') }}"
+      # with_items: "{{ play_hosts }}"
+      delegate_to: localhost
+      run_once: true

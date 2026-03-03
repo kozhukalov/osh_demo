@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Set hostname to hosts
+      shell: |
+        dd if=/dev/zero of=/dev/vdb count=15 bs=1G

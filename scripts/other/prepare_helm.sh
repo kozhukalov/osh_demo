@@ -10,5 +10,4 @@ if ! which helm 2>/dev/null 1>&2; then
 fi
 
 helm repo add openstack-helm https://tarballs.opendev.org/openstack/openstack-helm
-helm repo add openstack-helm-infra https://tarballs.opendev.org/openstack/openstack-helm-infra
 helm plugin install https://opendev.org/openstack/openstack-helm-plugin.git
